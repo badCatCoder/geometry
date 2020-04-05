@@ -9,34 +9,38 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class FXMLController {
-	private rettangolo rect;
-
+	public rettangolo rect;
 	public boolean initRettangolo() {
-		String altezzaS = this.in_altezza.getText();
-		float altezza;
-		try {
-			altezza = Float.parseFloat(altezzaS);
-		} catch (NullPointerException e) {
-			this.lblError.setText("Inserisi un valore!");
-			return false;
-		} catch (NumberFormatException e) {
-			this.lblError.setText("Devi inserire un numero!");
-			return false;
-		}
 
 		String baseS = this.in_base.getText();
-		float base;
-		try {
-			base = Float.parseFloat(baseS);
-		} catch (NullPointerException e) {
-			this.lblError.setText("Inserisi un valore!");
-			return false;
-		} catch (NumberFormatException e) {
-			this.lblError.setText("Devi inserire un numero!");
+		if (baseS.length() == 0) {
+			this.lblError.setText("Inserisi un valore per la base!");
 			return false;
 		}
-		rect.setAltezza(altezza);
+		int base = 1;
+
+		try {
+			base = Integer.parseInt(baseS);
+		} catch (NumberFormatException e) {
+			this.lblError.setText("Devi inserire un numero per la base!");
+			return false;
+		}
+
+		String altezzaS = this.in_altezza.getText();
+		if (altezzaS.length() == 0) {
+			this.lblError.setText("Inserisi un valore per l'altezza!");
+			return false;
+		}
+		int altezza = 1;
+		try {
+			altezza = Integer.parseInt(altezzaS);
+		} catch (NumberFormatException e) {
+			this.lblError.setText("Devi inserire un numero per l'altezza!");
+			return false;
+		}
+
 		rect.setBase(base);
+		rect.setAltezza(altezza);
 		return true;
 	}
 
@@ -75,17 +79,25 @@ public class FXMLController {
 
 	@FXML
 	void handlerCalcolaArea(ActionEvent event) {
-		if(this.initRettangolo()) {
+		boolean ca = this.initRettangolo();
+		if (!ca) {
 			this.lblError.setText("");
-			this.lblArea.setText(""+rect.calcolaArea());
+			this.lblArea.setText("" + rect.calcolaArea());
+		} else {
+			this.lblError.setText("errore di calcolo");
 		}
+
 	}
 
 	@FXML
 	void handlerCalcolaPerimetro(ActionEvent event) {
-		if(this.initRettangolo()) {
+		boolean cp = this.initRettangolo();
+		if (!cp) {
 			this.lblError.setText("");
-			this.lblPerimetro.setText(""+rect.calcolaPerimetro());
+			this.lblPerimetro.setText("" + rect.calcolaPerimetro());
+		} else {
+			this.lblError.setText("errore di calcolo");
+
 		}
 	}
 

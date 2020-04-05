@@ -1,22 +1,22 @@
 package it.polito.tdp.geometry;
 
 public class rettangolo {
-	private float base;
-	private float altezza;
+	private int base;
+	private int altezza;
 
-	public float calcolaPerimetro() {
+	public int calcolaPerimetro() {
 		return 2 * (base + altezza);
 	}
 
-	public float calcolaArea() {
+	public int calcolaArea() {
 		return base * altezza;
 	}
 
-	public void setBase(float base) {
+	public void setBase(int base) {
 		this.base = base;
 	}
 
-	public void setAltezza(float altezza) {
+	public void setAltezza(int altezza) {
 		this.altezza = altezza;
 	}
 }
